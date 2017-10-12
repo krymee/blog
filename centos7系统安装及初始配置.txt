@@ -1,4 +1,5 @@
 centos7系统安装及初始配置
+可以在 https://github.com/krymee/scripts 找到一些简单的脚本
 
 ## 安装前规划
 
