@@ -1,0 +1,194 @@
+centos7系统安装及初始配置
+
+## 安装前规划
+
+CentOS 7.x系列只有64位系统，没有32位。
+生产服务器建议安装CentOS-7-x86_64-Minimal-1611.iso版本
+
+分区：
+/boot  200M
+swap   内存1.5倍,不大于8G
+/      100G
+/data  余下的空间
+
+服务器相关设置：
+IP地址：192.168.33.1
+网关：192.168.33.253
+DNS：119.29.29.29
+
+## 安装
+
+最小化安装
+297个软件包
+
+支持简体中文
+共350个软件包
+
+自定义分区设置
+标准分区
+/boot  200M
+swap   内存1.5倍，不大于8G
+/      100G
+/data  余下的空间
+
+重启，登录系统
+
+## 配置IP地址，网关，DNS
+
+方法1：
+nmtui 工具
+
+方法2：
+/etc/sysconfig/network-script/ifcfg-ens32  配置文件
+
+vi /etc/sysconfig/network-script/ifcfg-ens32
+
+BOOTPROTO=none
+ONBOOT=yes
+DNS1=119.29.29.29
+IPADDR=192.168.33.1
+PREFIX=24
+GATEWAY=192.168.33.253
+
+- 重启网卡
+systemctl restart network
+
+- 检查网络连通性
+ping www.baidu.com
+
+- 查看网卡信息
+ip addr
+ifconfig
+
+## 设置主机名称 lvs0
+
+hostname lvs0
+
+vi /etc/hostname
+lvs0
+或
+echo lvs0 > /etc/hostname
+
+## 修改网卡名称为传统名称
+ifcfg-ens32 --> ifcfg-eth0
+
+- 修改配置文件名称，及其相关内容
+cd /etc/sysconfig/network-script/
+mv ifcfg-ens32 ifcfg-eth0
+
+vi ifcfg-eth0  # 编辑以下的两项
+NAME=eth0
+DEVICE=eth0
+
+- 修改grup配置文件 /etc/sysconfig/grub
+在”GRUB_CMDLINE_LINUX“变量中添加一句”net.ifnames=0 biosdevname=0“
+vi /etc/sysconfig/grub
+GRUB_CMDLINE_LINUX="rhgb quiet net.ifnames=0 biosdevname=0"
+
+运行命令：
+grub2-mkconfig -o /boot/grub2/grub.cfg  
+重新生成grub配置并更新内核参数
+
+- 添加udev的规则
+在”/etc/udev/rules.d“目录中创建一个网卡规则”70-persistent-net.rules“,并写入下面的语句:
+
+SUBSYSTEM=="net",ACTION=="add",DRIVERS=="?*",ATTR{address}=="00:0c:29:1e:a3:77",ATTR｛type｝=="1" ,KERNEL=="eth*",NAME="eth0"
+
+ATTR{address}=="00:0c:29:1e:a3:77"是网卡的MAC地址
+
+cd  /etc/udev/rules.d
+vi  70-persistent-net.rules
+
+SUBSYSTEM=="net",ACTION=="add",DRIVERS=="?*",ATTR{address}=="00:0c:29:1e:a3:77",ATTR｛type｝=="1" ,KERNEL=="eth*",NAME="eth0"
+
+重启系统
+shutdown -r now
+
+## 内核优化
+
+1、vi /etc/security/limits.conf #在最后一行添加以下代码
+limits_conf.sh
+
+* soft nproc unlimited
+* hard nproc unlimited
+* soft nofile 655350
+* hard nofile 655350
+
+2、vi /etc/profile #在最后一行添加以下代码
+kernel_unlimited.sh
+
+ulimit -SHn 655350
+ulimit -SHu unlimited
+ulimit -SHd unlimited
+ulimit -SHm unlimited
+ulimit -SHs unlimited
+ulimit -SHt unlimited
+ulimit -SHv unlimited
+
+source /etc/profile
+ulimit -a
+
+3、/etc/sysctl.conf
+kernel_tuning.sh
+
+## 系统安全设置
+
+1、添加普通用
+usreadd phiix
+echo "123456"|passwd --stdin phiix
+
+2、禁用root远程ssh登录
+vi /etc/ssh/sshd_config #编辑
+#PermitRootLogin yes
+PermitRootLogin no
+
+3、给系统文件加锁,防止未经许可的删除或添加
+sys_file_sec.sh
+
+4、开启防火墙
+iptables_init.sh
+
+5、修改ssh配置
+vi /etc/ssh/sshd_config
+#Port 22
+Port 222
+
+#PermitRootLogin yes
+PermitRootLogin  no
+
+vi /etc/ssh/ssh_config
+#	Port 22
+Port 222
+
+vi /etc/sysconfig/iptables
+把22端口修改为222
+
+systemctl restart sshd
+systemctl restart iptables
+
+## 同步系统时间
+
+yum install -y ntp #安装ntp
+ntpdate time1.aliyun.com #执行时间同步
+hwclock --systohc #系统时钟和硬件时钟同步
+
+echo -e "0 0 * * * /usr/sbin/ntpdate time1.aliyun.com  &>/dev/null" >> /var/spool/cron/root
+systemctl restart crond
+
+## 安装基础软件包
+
+yum install -y apr* autoconf automake bison cloog-ppl compat* cpp curl curl-devel \
+fontconfig fontconfig-devel freetype freetype* freetype-devel gcc gcc-c++ gd \
+gettext gettext-devel glibc kernel kernel-headers keyutils keyutils-libs-devel \
+krb5-devel libcom_err-devel libpng* libjpeg* libsepol-devel libselinux-devel \
+libstdc++-devel libtool* libgomp libxml2 libxml2-devel libXpm* libtiff libtiff* \
+libX* libxml* make mpfr ncurses* ntp openssl openssl-devel patch pcre-devel perl \
+php-common php-gd policycoreutils-py* ppl telnet t1lib t1lib* nasm nasm* wget zlib-devel \
+lrz* vim  bash-comp*  \
+
+
+
+
+
+
+
