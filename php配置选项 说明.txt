@@ -1,0 +1,406 @@
+PHP-5.6.31配置选项说明
+
+要分配环境变量（例如CC，CFLAGS ...），请将其指定为 VAR=VALUE。有关一些有用变量的说明，请参见下文。
+
+选项的默认值在括号中指定。
+
+配置：
+  -h，--help 显示此帮助并退出
+      --help=short  特定于此包的简短显示选项
+      --help=recursive  递归显示所有包含的包的简短帮助
+  -V，--version   显示版本信息并退出
+  -q，--quiet，--silent  不打印 “checking...”消息
+      --cache-file=FILE  缓存测试结果保存到FILE [disabled]
+  -C，--config-cache   `--cache-file=config.cache'
+  -n，--no-create   不创建输出文件
+      --srcdir=DIR  找到DIR中的源[配置目录或`..']
+
+安装目录：
+  --prefix=PREFIX  单独在PREFIX中安装文件 [/usr/local]
+  --exec-prefix=EPREFIX 单独在EPREFIX中安装文件 [PREFIX]
+
+默认情况下，`make install' 将安装所有文件到
+`/usr/local/bin'，`/usr/local/lib' 等，可以使用`--prefix'指定
+'/usr/local'之外的安装路径，
+例如`--prefix=$HOME' 'prfix=/usr/local/php-<version>'
+
+使用以下选项可以更好的控制PHP。
+
+按需要调整安装目录：
+  --bindir=DIR  用户可执行文件 [EPREFIX/bin]
+  --sbindir=DIR  系统管理员可执行文件 [EPREFIX/sbin]
+  --libexecdir=DIR  程序可执行文件 [EPREFIX/libexec]
+  --sysconfdir=DIR  只读单机数据 [PREFIX/etc]
+  --sharedstatedir=DIR  可修改的独立于架构的数据 [PREFIX/com]
+  --localstatedir=DIR  可修改的单机数据 [PREFIX/var]
+  --libdir=DIR  对象代码库[EPREFIX/lib]
+  --includedir=DIR  C头文件[PREFIX/include]
+  --oldincludedir=DIR  非gcc的C头文件[/usr/include]
+  --datarootdir=DIR  只读arch.独立数据根 [PREFIX/share]
+  --datadir=DIR  只读架构独立数据[DATAROOTDIR]
+  --infodir=DIR  信息文档[DATAROOTDIR/info]
+  --localedir=DIR  区域设置相关数据[DATAROOTDIR/locale]
+  --mandir=DIR  MAN文档[DATAROOTDIR/man]
+  --docdir=DIR  指南文档根[DATAROOTDIR/doc/PACKAGE]
+  --htmldir=DIR html文档[DOCDIR]
+  --dvidir=DIR  dvi文档[DOCDIR]
+  --pdfdir=DIR  pdf文档[DOCDIR]
+  --psdir=DIR   ps文档[DOCDIR]
+
+系统类型：
+  --build=BUILD  用于构建在BUILD上的配置 [guessed]
+  --host=HOST  交叉编译，构建程序运行在HOST [BUILD]
+  --target=TARGET  为TARGET构建编译器的配置 [HOST]
+
+可选功能和包：
+  --disable-option-checking  忽略无法识别的 --enable/--with 选项
+  --disable-FEATURE  不包括FEATURE（与--enable-FEATURE=no 相同）
+  --enable-FEATURE[=ARG]  包括FEATURE [ARG=yes]
+  --with-PACKAGE[=ARG]  使用PACKAGE [ARG=yes]
+  --without-PACKAGE  不使用PACKAGE（与--with-PACKAGE=no 相同）
+  --with-libdir=NAME  在.../NAME 中查找库，而不是在.../lib 中找
+  --disable-rpath  禁用传递附加运行库搜索路径
+  --enable-re2c-cgoto  启用-g标志为re2c以使用计算 goto gcc 扩展
+
+SAPI模块：SAPI(Server Application Programming Interface)服务器端应用编程端口
+
+  --with-aolserver=DIR  指定安装的AOLserver的路径
+  --with-apxs=FILE  构建共享Apache 1.x模块。FILE是Apache apxs工具apxs的可选路径名
+  --with-apache=DIR  构建Apache 1.x模块。DIR是Apache的顶级
+                          构建目录 /usr/local/apache
+  --enable-mod-charset  APACHE：启用mod_charset（Rus Apache）的传输表
+  --with-apxs2filter=FILE
+                          实验性：构建共享的Apache 2.0过滤器模块。FILE是
+                          Apache apxs工具apxs的可选路径名
+  --with-apxs2=FILE  构建共享的Apache 2.0处理程序模块。FILE是
+                          Apache apxs工具apxs的可选路径名
+  --with-apache-hooks=FILE
+                          实验性：构建共享Apache 1.x模块。FILE是
+                          Apache apxs工具apxs的可选路径名
+  --with-apache-hooks-static=DIR
+                          实验性：构建Apache 1.x模块。DIR是Apache
+                          顶级的构建目录/usr/local/apache
+  --enable-mod-charset  APACHE（hooks）：启用mod_charset（Rus Apache）的传输表
+  --with-caudium=DIR  构建PHP作为Pike模块与Caudium一起使用。
+                          DIR是Caudium服务器目录/usr/local/caudium/server
+  --disable-cli  禁用构建CLI版的PHP
+                          （强制选项 --without-pear）
+  --with-continuity=DIR  构建PHP作为连续性服务器模块。
+                          DIR是安装的Continuity Server根目录的路径
+  --enable-embed=TYPE  实验性：启用构建嵌入式SAPI库
+                          TYPE是“shared”或"static"。TYPE=shared
+  --enable-fpm  启用构建fpm SAPI可执行文件
+  --with-fpm-user=USER  设置php-fpm运行时的用户。（默认值：nobody）
+  --with-fpm-group=GRP  设置php-fpm运行时的组。对于系统用户，这个
+                          通常应该设置为匹配fpm用户名（默认值：nobody）
+  --with-fpm-systemd  启用systemd集成
+  --with-fpm-acl  使用POSIX访问控制列表
+  --with-isapi=DIR  构建PHP作为与Zeus一起使用的ISAPI模块
+  --with-litespeed  构建PHP作为litespeed模块
+  --with-milter=DIR  构建PHP作为Milter应用程序
+  --with-nsapi=DIR  为Netscape/iPlanet/Sun Webserver 构建PHP作为NSAPI模块
+  --enable-phpdbg  构建phpdbg
+  --enable-phpdbg-debug  在调试模式下构建phpdbg
+  --with-phttpd=DIR  构建PHP作为phttpd模块
+  --with-pi3web=DIR  构建PHP作为Pi3Web模块
+  --with-roxen=DIR   构建PHP作为Pike模块。DIR是Roxen的基础
+                          目录，通常是/usr/local/roxen/server
+  --enable-roxen-zts ROXEN：使用Zend Thread Safety构建Roxen模块
+  --with-thttpd=SRCDIR  构建PHP作为thttpd模块
+  --with-tux=MODULEDIR  将PHP构建为TUX模块（仅限Linux）
+  --with-webjames=SRCDIR  将PHP构建为WebJames模块（仅限RISC操作系统）
+  --disable-cgi  禁用构建CGI版本的PHP
+
+常规设置：
+
+  --enable-gcov  启用GCOV代码覆盖（需要LTP） - 仅限开发人员！
+  --enable-debug  编译时加入调试符号
+  --with-layout=TYPE  设置安装文件的布局方式。类型可以
+                          是PHP或者GNU [PHP]
+  --with-config-file-path=PATH  设置查找php.ini的路径[PREFIX/lib]
+  --with-config-file-scan-dir=PATH
+                          设置扫描配置文件的路径
+  --enable-sigchild  启用PHP自己的SIGCHLD处理程序
+  --enable-libgcc  启用确切的libgcc链接
+  --disable-short-tags  禁用短格式 <？默认情况下开始标记
+  --enable-dmalloc  启用dmalloc
+  --disable-ipv6  禁用IPv6支持
+  --enable-dtrace  启用DTrace支持
+  --enable-fd-setsize  设置描述符集的大小
+
+扩展：
+
+  --with-EXTENSION=shared[,PATH]
+
+    注意：并非所有扩展都可以构建为“shared”。
+    示例：--with-foobar=shared,/usr/local/foobar/
+
+      - 将foobar扩展名构建为共享扩展。
+      - foobar包安装前缀是/usr/local/foobar/
+
+
+  --disable-all 禁用默认启用的所有扩展
+
+  --with-regex=TYPE  正则表达式库类型：system，php。TYPE=PHP
+                          警告：不要使用，除非你知道你在做什么！
+  --disable-libxml  禁用LIBXML支持
+  --with-libxml-dir=DIR  LIBXML：libxml2安装前缀
+  --with-openssl=DIR  包括OpenSSL支持（需要OpenSSL>=0.9.6）
+  --with-kerberos=DIR  OPENSSL：包括Kerberos支持
+  --with-system-ciphers  OPENSSL：使用系统默认密码列表而不是硬编码的值
+  --with-pcre-regex=DIR  包含Perl兼容的正则表达式支持。
+                          DIR是PCRE安装前缀BUNDLED
+  --without-sqlite3=DIR  不包括SQLite3支持。DIR是前缀
+                          SQLite3安装目录。
+  --with-zlib=DIR  包括ZLIB支持（需要zlib>=1.0.9）
+  --with-zlib-dir=<DIR>  定义zlib安装目录的位置
+  --enable-bcmath  启用bc样式精确数学函数
+  --with-bz2=DIR  包含BZip2支持
+  --enable-calendar  启用日历转换支持
+  --disable-ctype  禁用ctype函数
+  --with-curl=DIR  包含cURL支持
+  --enable-dba  使用捆绑模块构建DBA。构建共享DBA
+                          扩展使用--enable-dba=shared
+  --with-qdbm=DIR  DBA：支持QDBM
+  --with-gdbm=DIR  DBA：支持GDBM
+  --with-ndbm=DIR  DBA：NDBM支持
+  --with-db4=DIR   DBA：Oracle Berkeley DB 4.x或5.x支持
+  --with-db3=DIR   DBA：Oracle Berkeley DB 3.x支持
+  --with-db2=DIR   DBA：Oracle Berkeley DB 2.x支持
+  --with-db1=DIR   DBA：Oracle Berkeley DB 1.x支持/仿真
+  --with-dbm=DIR   DBA：DBM支持
+  --with-tcadb=DIR DBA：Tokyo Cabinet 抽象DB支持
+  --without-cdb=DIR DBA：CDB支持（捆绑）
+  --disable-inifile DBA：INI支持（捆绑）
+  --disable-flatfile DBA：FlatFile支持（捆绑）
+  --disable-dom  禁用DOM支持
+  --with-libxml-dir=DIR DOM：libxml2安装前缀
+  --with-enchant=DIR  包括拼写检查支持。
+                          需要GNU Aspell版本1.1.3或更高版本。
+  --enable-exif  启用EXIF（图像元数据）支持
+  --disable-fileinfo  禁用fileinfo支持
+  --disable-filter  禁用输入过滤器支持
+  --with-pcre-dir FILTER：pcre安装前缀
+  --enable-ftp  启用FTP支持
+  --with-openssl-dir=DIR  FTP：openssl安装前缀
+  --with-gd=DIR  包括GD支持。DIR是GD库库
+                          安装目录BUNDLED
+  --with-vpx-dir=DIR    GD：设置libvpx安装的路径
+  --with-jpeg-dir=DIR   GD：设置libjpeg安装的路径
+  --with-png-dir=DIR    GD：设置libpng安装的路径
+  --with-zlib-dir=DIR   GD：设置libz安装的路径
+  --with-xpm-dir=DIR    GD：设置为libXpm安装路径
+  --with-freetype-dir=DIR  GD：设置FreeType 2安装路径
+  --with-t1lib=DIR      GD：包含T1lib支持。T1lib版本必需>=5.0.0
+  --enable-gd-native-ttf GD：启用TrueType字符串函数
+  --enable-gd-jis-conv GD：启用JIS映射的日文字体支持
+  --with-gettext=DIR  包括GNU gettext支持
+  --with-gmp=DIR   包括GNU MP支持
+  --with-mhash=DIR  包括mhash支持
+  --disable-hash  禁用哈希支持
+  --without-iconv=DIR  排除iconv支持
+  --with-imap=DIR  包括IMAP支持。DIR是c客户端安装前缀
+  --with-kerberos=DIR IMAP：包含Kerberos支持。DIR是Kerberos安装路径
+  --with-imap-ssl=DIR IMAP：包含SSL支持。DIR是OpenSSL安装路径
+  --with-interbase=DIR  包括InterBase支持。DIR是InterBase基础
+                          安装目录/usr/interbase
+  --enable-intl  启用国际化支持
+  --with-icu-dir=DIR  指定可以在哪里找到ICU库和头文件
+  --disable-json  禁用JavaScript对象序列化支持
+  --with-ldap=DIR  包括LDAP支持
+  --with-ldap-sasl=DIR LDAP：包括Cyrus SASL支持
+  --enable-mbstring  启用多字节字符串支持
+  --disable-mbregex  MBSTRING：禁用多字节正则表达式支持
+  --disable-mbregex-backtrack
+                          MBSTRING：禁用多字节正则表达式回溯检查
+  --with-libmbfl=DIR  MBSTRING：使用外部libmbfl。DIR是libmbfl基础
+                          安装目录BUNDLED
+  --with-onig=DIR  MBSTRING：使用外部oniguruma。DIR是oniguruma安装路径。
+                          如果DIR未设置，将使用捆绑的oniguruma
+  --with-mcrypt=DIR  包括mcrypt支持
+  --with-mssql=DIR  包括MSSQL-DB支持。DIR是FreeTDS的家
+                          目录/usr/local/freetds
+  --with-mysql=DIR  包括MySQL支持。DIR是MySQL的基础
+                          目录，如果没有DIR传递或值是
+                          mysqlnd将会使用MySQL本机驱动
+  --with-mysql-sock=SOCKPATH
+                          MySQL/MySQLi/PDO_MYSQL：MySQL unix套接字指针的位置。
+                          如果未指定，则搜索默认位置
+  --with-zlib-dir=DIR  MySQL：设置libz安装的路径
+  --with-mysqli=FILE   包含MySQLi支持。FILE是路径
+                          到mysql_config。如果没有值或mysqlnd被传递
+                          作为FILE，将使用MySQL本机驱动程序
+  --enable-embedded-mysqli
+                          MYSQLi：启用嵌入式支持
+                          注意：不适用于MySQL本机驱动程序！
+  --with-oci8=DIR  包括Oracle数据库OCI8支持。DIR默认为$ORACLE_HOME。
+                          使用--with-oci8=instantclient,/path/to/instant/client/lib
+                          使用Oracle Instant Client安装
+  --with-odbcver=HEX 强制支持传递的ODBC版本。预期为十六进制数，默认为0x0300。
+                             使用特殊值0来防止定义显式的ODBCVER。
+  --with-adabas=DIR  包括Adabas D支持/usr/local
+  --with-sapdb=DIR   包括SAP DB支持/usr/local
+  --with-solid=DIR   包括固体支持/usr/local/solid
+  --with-ibm-db2=DIR 包括IBM DB2支持/home/db2inst1/sqllib
+  --with-ODBCRouter=DIR  包括ODBCRouter.com支持/usr
+  --with-empress=DIR  包括Empress支持\$EMPRESSPATH
+                          （Empress 版本需要 >= 8.60）
+  --with-empress-bcs=DIR
+                          包括Empress本地访问支持\$EMPRESSPATH
+                          （Empress版本需要 >= 8.60）
+  --with-birdstep=DIR  包括Birdstep支持/usr/local/birdstep
+  --with-custom-odbc=DIR  包括用户定义的ODBC支持。DIR是ODBC安装基础
+                          目录/usr/local。确保定义CUSTOM_ODBC_LIBS和
+                          在您的包含目录中有一些odbc.h。你应该定义
+                          关于QNX之前的Sybase SQL Anywhere 5.5.00的以下内容
+                          运行此配置脚本：
+                            CPPFLAGS=\“- DODBC_QNX -DSQLANY_BUG\”
+							LDFLAGS=-lunix
+                            CUSTOM_ODBC_LIBS=\“-ldblib -lodbc\”
+  --with-iodbc=DIR  包括iODBC支持/usr/local
+  --with-esoob=DIR  包括Easysoft OOB支持/usr/local/easysoft/oob/client
+  --with-unixODBC=DIR  包括unixODBC支持/usr/local
+  --with-dbmaker=DIR  包括DBMaker支持
+  --enable-opcache  启用Zend OPcache支持
+  --enable-pcntl  启用pcntl支持（仅限CLI/CGI）
+  --disable-pdo  禁用PHP数据对象支持
+  --with-pdo-dblib=DIR PDO：DBLIB-DB支持。DIR是FreeTDS主目录
+  --with-pdo-firebird=DIR PDO：Firebird支持。DIR是Firebird基础
+                          安装目录/opt/firebird
+  --with-pdo-mysql=DIR PDO：MySQL支持。DIR是MySQL的基本目录
+                          如果没有值或mysqlnd作为DIR传递，则
+                          将使用MySQL本机驱动程序
+  --with-zlib-dir=DIR   PDO_MySQL：设置libz安装前缀的路径
+  --with-pdo-oci=DIR    PDO：Oracle OCI支持。DIR默认为\$ORACLE_HOME。
+                          使用--with-pdo-oci=instantclient，前缀，版本
+                          用于Oracle Instant Client SDK。
+                          例如在使用11.2 RPM的Linux上使用：
+                            --with-PDO-OCI=instantclient 是/usr，11.2
+                          使用10.2 RPMs：
+                            --with-PDO-OCI=instantclient 是/usr，10.2.0.4
+  --with-pdo-odbc=flavour,dir
+                          PDO：支持'flavor'ODBC驱动。
+			  include和lib dirs在“dir”下查找。
+
+			  'flavor'可以是以下之一：ibm-db2，iODBC，unixODBC，generic
+			  如果'，dir'部分被省略，默认使用已经选择的flavour。例如：
+
+			    --with-pdo-odbc=unixODBC
+
+			  将在/usr /local 下检查unixODBC。你可以尝试
+			  使用其他不支持的驱动程序使用“generic”
+			 。通用ODBC支持的语法是：
+
+			  --with-pdo-odbc=generic,dir,libname,ldflags,cflags
+
+			  当构建为“shared”时，扩展名文件名始终为pdo_odbc.so
+  --with-pdo-pgsql=DIR PDO：PostgreSQL支持。DIR是PostgreSQL的基础
+                          安装目录或pg_config的路径
+  --without-pdo-sqlite=DIR
+                          PDO：sqlite 3支持。DIR是sqlite的基础
+                          安装目录BUNDLED
+  --with-pgsql=DIR  包括PostgreSQL支持。DIR是PostgreSQL
+                          基本安装目录或pg_config的路径
+  --disable-phar  禁用phar支持
+  --disable-posix  禁用类似POSIX的功能
+  --with-pspell=DIR  包括PSPELL支持。
+                          需要GNU Aspell版本0.50.0以上
+  --with-libedit=DIR  包含libedit readline替换（仅限CLI/CGI）
+  --with-readline=DIR  包含readline支持（仅限CLI/CGI）
+  --with-recode=DIR  包括重新配置支持
+  --disable-session  禁用会话支持
+  --with-mm=DIR SESSION：包括mm支持会话存储
+  --enable-shmop  启用shmop支持
+  --disable-simplexml  禁用SimpleXML支持
+  --with-libxml-dir=DIR SimpleXML：libxml2安装前缀
+  --with-snmp=DIR  包括SNMP支持
+  --with-openssl-dir=DIR SNMP：openssl安装前缀
+  --enable-soap  启用SOAP支持
+  --with-libxml-dir=DIR SOAP：libxml2安装前缀
+  --enable-sockets  启用套接字支持
+  --with-sybase-ct=DIR  包括Sybase-CT支持。DIR是Sybase的家
+                          目录/home/sybase
+  --enable-sysvmsg  启用sysvmsg支持
+  --enable-sysvsem  启用System V信号量支持
+  --enable-sysvshm  启用System V共享内存支持
+  --with-tidy=DIR   包括TIDY支持
+  --disable-tokenizer  禁用tokenizer支持
+  --enable-wddx  启用WDDX支持
+  --with-libxml-dir=DIR WDDX：libxml2安装路径
+  --with-libexpat-dir=DIR WDDX：用于XMLRPC-EPI的libexpat目录（已弃用）
+  --disable-xml  禁用XML支持
+  --with-libxml-dir=DIR XML：libxml2安装目录
+  --with-libexpat-dir=DIR XML：libexpat安装路径（不推荐使用）
+  --disable-xmlreader  禁用XMLReader支持
+  --with-libxml-dir=DIR XMLReader：libxml2安装前缀
+  --with-xmlrpc=DIR  包含XMLRPC-EPI支持
+  --with-libxml-dir=DIR XMLRPC-EPI：libxml2安装前缀
+  --with-libexpat-dir=DIR XMLRPC-EPI：用于XMLRPC-EPI的libexpat目录（已弃用）
+  --with-iconv-dir=DIR XMLRPC-EPI：用于XMLRPC-EPI的iconv目录
+  --disable-xmlwriter  禁用XMLWriter支持
+  --with-libxml-dir=DIR XMLWriter：libxml2安装前缀
+  --with-xsl=DIR  包含XSL支持。DIR是libxslt的基础
+                          安装目录（libxslt >= 1.1.0需要）
+  --enable-zip  包含Zip读/写支持
+  --with-zlib-dir=DIR ZIP：设置libz安装前缀的路径
+  --with-pcre-dir ZIP：pcre安装前缀
+  --with-libzip=DIR ZIP：使用libzip
+  --enable-mysqlnd  显式启用mysqlnd，将隐式完成
+                          当需要其他扩展
+  --disable-mysqlnd-compression-support
+                          在mysqlnd中禁用对MySQL压缩协议的支持
+  --with-zlib-dir=DIR mysqlnd：设置libz安装前缀的路径
+
+PEAR：
+
+  --with-pear=DIR  DIR安装到 [PREFIX/lib/php]
+  --without-pear  不要安装PEAR
+
+Zend：
+
+  --with-zend-vm=TYPE  设置虚拟机调度方法。类型是
+                          “CALL”，“SWITCH”或“GOTO” TYPE= CALL之一
+  --enable-maintainer-zts  用线程安全 - 仅供代码维护者使用！
+  --disable-inline-optimization                           如果建立zend_execute.lo失败，请尝试此开关
+  --enable-zend-signals  使用zend信号处理
+
+TSRM：
+
+  --with-tsrm-pth=pth-config
+                          使用GNU Pth
+  --with-tsrm-st  使用SGI的状态线程
+  --with-tsrm-pthreads  使用POSIX线程（默认）
+
+Libtool程序：
+
+  --enable-shared=PKGS  构建共享库default=yes
+  --enable-static=PKGS  构建静态库default=yes
+  --enable-fast-install=PKGS
+                          优化快速安装default=yes
+  --with-gnu-ld  假设C编译器使用GNU ld default=no
+  --disable-libtool-lock  避免锁定（可能会破坏并行构建）
+  --with-pic  尝试仅使用PIC/非PIC对象default=use both  --with-tags=TAGS 自动包括其他配置
+
+
+一些有影响力的环境变量：
+  CC C编译器命令
+  CFLAGS C编译器标志
+  LDFLAGS 链接器标志，例如-L <lib dir>，如果你有一个库
+              非标准目录<lib dir>
+  LIBS 库传递给链接器，例如-l <library>
+  CPPFLAGS（Objective）C/C ++预处理器标志，例如-I <include dir> if
+              您的标题位于非标准目录<include dir>中
+  CPP C预处理器
+  YACC 使用的“另一个C编译器”实现。默认为
+              第一个程序发现：`bison -y'，`byacc'，'yacc'。
+  YFLAGS 默认将传递给$YACC的参数列表。
+              此脚本将默认YFLAGS为空字符串以避免
+              由某些make应用程序给出的`-d'的默认值。
+  CXX C++编译器命令
+  CXXFLAGS C++编译器标志
+  CXXCPP C++预处理器
+
+使用这些变量来覆盖“configure”或帮助所做的选择
+它找到具有非标准名称/位置的库和程序。
+
+

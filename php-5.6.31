@@ -1,0 +1,176 @@
+php-5.6.31
+
+依赖包用 yum安装
+
+http://mirrors.ustc.edu.cn/
+
+mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
+
+/etc/yum.repos.d/CentOS-Base.repo
+
+# CentOS-Base.repo
+#
+# The mirror system uses the connecting IP address of the client and the
+# update status of each mirror to pick mirrors that are updated to and
+# geographically close to the client.  You should use this for CentOS updates
+# unless you are manually picking other mirrors.
+#
+# If the mirrorlist= does not work for you, as a fall back you can try the
+# remarked out baseurl= line instead.
+#
+#
+
+[base]
+name=CentOS-$releasever - Base
+#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os
+baseurl=https://mirrors.ustc.edu.cn/centos/$releasever/os/$basearch/
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+
+#released updates
+[updates]
+name=CentOS-$releasever - Updates
+# mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=updates
+baseurl=https://mirrors.ustc.edu.cn/centos/$releasever/updates/$basearch/
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+
+#additional packages that may be useful
+[extras]
+name=CentOS-$releasever - Extras
+# mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=extras
+baseurl=https://mirrors.ustc.edu.cn/centos/$releasever/extras/$basearch/
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+
+#additional packages that extend functionality of existing packages
+[centosplus]
+name=CentOS-$releasever - Plus
+# mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=centosplus
+baseurl=https://mirrors.ustc.edu.cn/centos/$releasever/centosplus/$basearch/
+gpgcheck=1
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+
+
+yum install -y epel-release
+sed -e 's!^mirrorlist=!#mirrorlist=!g' \
+         -e 's!^#baseurl=!baseurl=!g' \
+         -e 's!//download\.fedoraproject\.org/pub!//mirrors.ustc.edu.cn!g' \
+         -e 's!http://mirrors\.ustc!https://mirrors.ustc!g' \
+         -i /etc/yum.repos.d/epel.repo /etc/yum.repos.d/epel-testing.repo
+		 
+yum install -y libmcrypt libmcrypt-devel mcrypt mhash
+
+php包用编译安装
+
+
+
+
+./configure \
+--prefix=/usr/local/php-5.6.31 \
+--with-config-file-path=/usr/local/php-5.6.31/etc \
+--enable-fpm \
+--enable-exif \
+--enable-sockets \
+--enable-bcmath \
+--enable-mbstring \
+--enable-pcntl \
+--enable-calendar \
+--enable-opcache \
+--with-fpm-user=wwwpub \
+--with-fpm-group=wwwpub \
+--with-mysql=/usr \
+--with-mysqli=/usr/bin/mysql_config \
+--with-zlib \
+--with-gd \
+--with-png-dir \
+--with-jpeg-dir \
+--with-gettext \
+--with-freetype-dir \
+--with-mcrypt \
+--with-openssl \
+--with-curl \
+
+
+ln -s /usr/local/php-5.6.31 /usr/local/php
+ln -s /usr/local/php/etc /etc/php
+
+/usr/lib/systemd/system/php-fpm.service
+
+[Unit]
+Description=The PHP FastCGI Process Manager
+After=syslog.target network.target
+
+[Service]
+Type=simple
+PIDFile=/run/php-fpm.pid
+Environment="basedir=/usr/local/php"
+ExecStart=/bin/nice --10 ${basedir}/sbin/php-fpm --nodaemonize --fpm-config ${basedir}/etc/php-fpm.conf -c ${basedir}/etc/php.ini -R
+ExecReload=/bin/kill -USR2 $MAINPID
+ExecStop=/bin/kill $MAINPID
+
+[Install]
+WantedBy=multi-user.target
+
+php-7.1.11
+
+./configure \
+--prefix=/usr/local/php-7.1.11 \
+--with-config-file-path=/usr/local/php-7.1.11/etc \
+--enable-fpm \
+--enable-exif \
+--enable-sockets \
+--enable-bcmath \
+--enable-mbstring \
+--enable-pcntl \
+--enable-calendar \
+--enable-opcache \
+--with-fpm-user=www \
+--with-fpm-group=www \
+--with-mysqli=/usr/bin/mysql_config \
+--with-zlib \
+--with-gd \
+--with-png-dir \
+--with-jpeg-dir \
+--with-gettext \
+--with-freetype-dir \
+--with-mcrypt \
+--with-openssl \
+--with-curl \
+
+ln -s /usr/local/php-7.1.11 /usr/local/php
+ln -s /usr/local/php/etc /etc/php
+
+/usr/lib/systemd/system/php-fpm.service
+
+[Unit]
+Description=The PHP FastCGI Process Manager
+After=syslog.target network.target
+
+[Service]
+Type=simple
+PIDFile=/run/php-fpm.pid
+Environment="basedir=/usr/local/php"
+ExecStart=/bin/nice --10 ${basedir}/sbin/php-fpm --nodaemonize --fpm-config ${basedir}/etc/php-fpm.conf -c ${basedir}/etc/php.ini -R
+ExecReload=/bin/kill -USR2 $MAINPID
+ExecStop=/bin/kill $MAINPID
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
