@@ -68,8 +68,8 @@ php包用编译安装
 
 
 ./configure \
---prefix=/usr/local/php-5.6.31 \
---with-config-file-path=/usr/local/php-5.6.31/etc \
+--prefix=/usr/local/php-5.6.32 \
+--with-config-file-path=/usr/local/php-5.6.32/etc \
 --enable-fpm \
 --enable-exif \
 --enable-sockets \
@@ -78,9 +78,9 @@ php包用编译安装
 --enable-pcntl \
 --enable-calendar \
 --enable-opcache \
---with-fpm-user=wwwpub \
---with-fpm-group=wwwpub \
---with-mysql=/usr \
+--with-fpm-user=www \
+--with-fpm-group=www \
+--with-mysql \
 --with-mysqli=/usr/bin/mysql_config \
 --with-zlib \
 --with-gd \
@@ -93,7 +93,7 @@ php包用编译安装
 --with-curl \
 
 
-ln -s /usr/local/php-5.6.31 /usr/local/php
+ln -s /usr/local/php-5.6.32 /usr/local/php
 ln -s /usr/local/php/etc /etc/php
 
 /usr/lib/systemd/system/php-fpm.service
@@ -158,6 +158,35 @@ ExecStop=/bin/kill $MAINPID
 
 [Install]
 WantedBy=multi-user.target
+
+./configure \
+--prefix=/usr/local/php-5.6.32 \
+--with-config-file-path=/usr/local/php-5.6.32/etc \
+--enable-fpm \
+--enable-exif \
+--enable-sockets \
+--enable-bcmath \
+--enable-mbstring \
+--enable-pcntl \
+--enable-calendar \
+--enable-opcache \
+--enable-zip \
+--with-fpm-user=www \
+--with-fpm-group=www \
+--with-mysql \
+--with-mysqli=/usr/bin/mysql_config \
+--with-mysql-sock \
+--with-pdo-mysql \
+--enable-mysqlnd \
+--with-zlib \
+--with-gd \
+--with-png-dir \
+--with-jpeg-dir \
+--with-gettext \
+--with-freetype-dir \
+--with-mcrypt \
+--with-openssl \
+--with-curl \
 
 
 

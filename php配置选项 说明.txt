@@ -144,7 +144,7 @@ SAPI模块：SAPI(Server Application Programming Interface)服务器端应用编
   --with-regex=TYPE  正则表达式库类型：system，php。TYPE=PHP
                           警告：不要使用，除非你知道你在做什么！
   --disable-libxml  禁用LIBXML支持
-  --with-libxml-dir=DIR  LIBXML：libxml2安装前缀
+  --with-libxml-dir=DIR  LIBXML：libxml2安装路径
   --with-openssl=DIR  包括OpenSSL支持（需要OpenSSL>=0.9.6）
   --with-kerberos=DIR  OPENSSL：包括Kerberos支持
   --with-system-ciphers  OPENSSL：使用系统默认密码列表而不是硬编码的值

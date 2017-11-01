@@ -1,0 +1,27 @@
+﻿#卸载yum安装的全部gcc环境
+rpm -qa|grep devtool|xargs yum remove -y 
+yum install gcc gdb  && yum remove gcc gdb -y 
+#拷贝文件
+scp 192.168.0.180:/usr/local/src/{gcc-4.9.4-compiled.tar.bz2,gdb-7.9.tar.gz} /usr/local/src
+ykpiF8
+#gcc源码包是已经编译完成了的,解压要花些时间
+cd /usr/local/src && tar xf gcc-4.9.4-compiled.tar.bz2 && cd gcc-4.9.4
+make install
+#最好还是从新编译安装一次 
+./configure  \
+--prefix=/usr \
+--enable-checking=release \
+--enable-languages=c,c++ \
+--disable-multilib \
+make -j2 
+make install
+#安装gdb7.9依赖
+	yum install texinfo -y
+#编译安装
+	cd /usr/local/src && tar xf gdb-7.9.tar.gz && cd gdb-7.9
+	./configure --prefix=/usr/local/gdb-7.9 && make -j2 && make install #放在自定义目录,方便清理
+	ln -sf /usr/local/gdb/bin/gdb /usr/bin/gdb
+	
+	
+scp 192.168.0.180:/usr/local/src/{mysql-community-client-5.6.35-2.el6.x86_64.rpm,mysql-community-common-5.6.35-2.el6.x86_64.rpm,mysql-community-devel-5.6.35-2.el6.x86_64.rpm,mysql-community-libs-5.6.35-2.el6.x86_64.rpm,mysql-community-server-5.6.35-2.el6.x86_64.rpm} /usr/local/src
+	

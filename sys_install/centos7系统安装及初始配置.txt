@@ -7,10 +7,11 @@ CentOS 7.x系列只有64位系统，没有32位。
 生产服务器建议安装CentOS-7-x86_64-Minimal-1611.iso版本
 
 分区：
-/boot  200M
-swap   内存1.5倍,不大于8G
-/      100G
-/data  余下的空间
+biosboot  2M
+/boot  1G
+LVM-system
+  swap   内存1.5倍,不大于8G
+  /      100G/余下的空间
 
 服务器相关设置：
 IP地址：192.168.33.1
@@ -26,11 +27,12 @@ DNS：119.29.29.29
 共350个软件包
 
 自定义分区设置
-标准分区
-/boot  200M
-swap   内存1.5倍，不大于8G
-/      100G
-/data  余下的空间
+分区：LVM
+biosboot  2M
+/boot  1G
+LVM-system
+  swap   内存1.5倍,不大于8G
+  /      100G/余下的空间
 
 重启，登录系统
 
